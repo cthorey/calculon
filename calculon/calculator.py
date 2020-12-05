@@ -10,6 +10,20 @@ OPS = {
 
 
 def calculate_prefix(expression: str) -> int:
+    """calculate prefix expression.
+
+    This solution use recursion:
+    1. Read the expression from the end
+    2. As soon as you find an operator
+    3. Apply it to the next two parameters
+    4. Passe the resulting expression to calculate_prefix.
+
+    Args:
+        expresion (str): Input prefix expression
+
+    Returns:
+        result (int)
+    """
     tokens = expression.split(' ')
     if len(tokens) == 1:
         return int(tokens[0])
