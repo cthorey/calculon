@@ -2,8 +2,10 @@ import pytest
 import requests
 import json
 from calculon import calculator
+import yaml
 
-CONFIG = {'host': '172.17.0.2', 'port': 80}
+with open('/config.yaml', 'r') as f:
+    CONFIG = yaml.load(f, yaml.Loader)['api']
 
 # infix test cases
 INFIX = {

@@ -23,6 +23,7 @@ test:  ## Run the test suite for calculon
 	$(info *** Testing $(REPO))
 	@docker run --rm \
     -v $(PWD):/packages/calculon \
+    -v $(PWD)/config.yaml:/config.yaml \
 		$(REPO):test pytest -m $(TEST)
 
 .PHONY: build-api

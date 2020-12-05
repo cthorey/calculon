@@ -1,10 +1,8 @@
 FROM tiangolo/uvicorn-gunicorn-fastapi:python3.7 as base
 
-# to test the API
-RUN pip install requests
-
-# copy our library and install it in dev mode
+# copy the library
 COPY . /packages/calculon
+RUN pip install -r /packages/calculon/requirements.txt
 RUN pip3 install -e /packages/calculon
 
 # Prod image
