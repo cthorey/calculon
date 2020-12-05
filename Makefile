@@ -22,8 +22,8 @@ build-test: ## Build test docker image
 test:  ## Run the test suite for calculon
 	$(info *** Testing $(REPO))
 	@docker run --rm \
-    -v $(PWD):/packages/calculon \
     -v $(PWD)/config.yaml:/config.yaml \
+    --name test \
 		$(REPO):test pytest -m $(TEST)
 
 .PHONY: build-api
@@ -41,4 +41,5 @@ serve: ## Serve the restAPI
 	@docker run \
     -d \
 		-p 80:80 \
-		$(REPO):api 
+    --name api \
+		$(REPO):api
