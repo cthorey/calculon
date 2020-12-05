@@ -1,5 +1,7 @@
+import pytest
 import requests
 import json
+from calculon import calculator
 
 CONFIG = {'host': '172.17.0.2', 'port': 80}
 
@@ -23,6 +25,22 @@ PREFIX = {
 }
 
 
+@pytest.mark.library
+def test_prefix_calculator():
+    # loop through the test-cases and make sure they pass
+    for expression, value in PREFIX.items():
+        result = calculator.calculate_prefix(expression)
+        assert result == value, f"Fail on {expression}. Expected :{value} - returned: {result}"
+
+
+@pytest.mark.library
+def test_infix_calculator():
+    for expression, value in INFIX.items():
+        result = calculator.calculate_infix(expression)
+        assert result == value, f"Fail on {expression}. Expected :{value} - returned: {result}"
+
+
+@pytest.mark.api
 def test_calculate_infix():
     for expression, result in INFIX.items():
         url = f"http://{CONFIG['host']}:{CONFIG['port']}/calculate_infix/"
@@ -32,6 +50,7 @@ def test_calculate_infix():
         assert json.loads(response.content)['result'] == result
 
 
+@pytest.mark.api
 def test_calculate_prefix():
     for expression, result in INFIX.items():
         url = f"http://{CONFIG['host']}:{CONFIG['port']}/calculate_infix/"

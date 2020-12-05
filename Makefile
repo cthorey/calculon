@@ -2,6 +2,7 @@ SHELL := bash
 DOCKERFILE = ./Dockerfile
 VERSION = dev
 REPO = "calculon"
+TEST = "library"
 
 .PHONY: help
 help:
@@ -22,7 +23,7 @@ test:  ## Run the test suite for calculon
 	$(info *** Testing $(REPO))
 	@docker run --rm \
     -v $(PWD):/packages/calculon \
-		$(REPO):test /packages/calculon/tests/run.sh
+		$(REPO):test pytest -m $(TEST)
 
 .PHONY: build-api
 build-api: ## Build api docker image
